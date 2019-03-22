@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class QuantityTest {
 
@@ -65,6 +64,24 @@ class QuantityTest {
     Quantity inch = new Quantity(new BigDecimal(1), Unit.INCH);
 
     assertNotEquals(litre, inch);
+  }
+
+  @Test
+  @DisplayName ("Should add two quantities of same type of unit")
+  void test2() throws DifferentUnitsAdditionException {
+    Quantity inch1 = new Quantity(new BigDecimal(2), Unit.INCH);
+    Quantity inch2 = new Quantity(new BigDecimal(2), Unit.INCH);
+    Quantity expected = new Quantity(new BigDecimal(4), Unit.INCH);
+    Quantity actual = inch1.add(inch2);
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  @DisplayName ("Should not add two quantities of different type of unit")
+  void test3() {
+    Quantity inch1 = new Quantity(new BigDecimal(2), Unit.INCH);
+    Quantity inch2 = new Quantity(new BigDecimal(2), Unit.LITRE);
+    assertThrows(DifferentUnitsAdditionException.class, () -> inch1.add(inch2));
   }
 
 }

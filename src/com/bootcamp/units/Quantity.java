@@ -21,4 +21,12 @@ public class Quantity {
 
     return firstQuantityBaseValue.equals(secondQuantityBaseValue);
   }
+
+  Quantity add(Quantity anotherQuantity) throws DifferentUnitsAdditionException {
+    if(!(this.unit.isOfSameType(anotherQuantity.unit))) {
+      throw new DifferentUnitsAdditionException("Invalid unit");
+    }
+    BigDecimal newValue = this.value.add(anotherQuantity.value);
+    return new Quantity(newValue, this.unit);
+  }
 }
