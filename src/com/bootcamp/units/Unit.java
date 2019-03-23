@@ -2,28 +2,23 @@ package com.bootcamp.units;
 
 import java.math.BigDecimal;
 
-class Unit {
-  private static final Object LENGTH = new Object();
-  static final Unit FEET = new Unit(new BigDecimal(25 * 12), LENGTH);
-  static final Unit INCH = new Unit(new BigDecimal(25), LENGTH);
-  static final Unit CENTIMETER = new Unit(new BigDecimal(10), LENGTH);
-  static final Unit MILLIMETER = new Unit(new BigDecimal(1), LENGTH);
-  private static final Object VOLUME = new Object();
-  static final Unit GALLON = new Unit(new BigDecimal(3.78), VOLUME);
-  static final Unit LITRE = new Unit(new BigDecimal(1), VOLUME);
-  private BigDecimal ratio;
-  private Object type;
+abstract class Unit {
+  BigDecimal ratio;
+  Object type;
 
-  private Unit(BigDecimal ratio, Object type) {
+  Unit(BigDecimal ratio, Object type) {
     this.ratio = ratio;
     this.type = type;
   }
 
-  BigDecimal convertToBaseUnitValue(BigDecimal value) {
-    return this.ratio.multiply(value);
-  }
+  abstract BigDecimal convertToBaseUnitValue(BigDecimal value);
+
+  abstract Unit getStandardUnit();
+
+  abstract BigDecimal convertToStandardUnitValue(BigDecimal baseValue);
 
   boolean isOfSameType(Unit anotherUnit) {
-    return this.type == anotherUnit.type;
+    return this.type.equals(anotherUnit.type);
   }
+
 }
