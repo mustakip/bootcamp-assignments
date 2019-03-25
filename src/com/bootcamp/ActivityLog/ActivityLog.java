@@ -1,19 +1,21 @@
 package com.bootcamp.ActivityLog;
 
 import java.util.ArrayList;
+import java.util.List;
 
-class ActivityLog {
-  private ArrayList<String> logs;
+class ActivityLog<T extends Log> {
+  private ArrayList<T> logs;
 
   ActivityLog() {
     this.logs = new ArrayList<>();
   }
 
-  ArrayList<String> log() {
-    return this.logs;
+  List<T> getLogs() {
+    return List.copyOf(this.logs);
   }
 
-  public void add(String log) {
+  void log(T log) {
     this.logs.add(log);
   }
+
 }
